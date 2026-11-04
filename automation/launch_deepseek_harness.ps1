@@ -101,13 +101,13 @@ if ($DeepSeekHarnessPath -and (Test-Path $DeepSeekHarnessPath)) {
 # 7. Wait for DeepSeek Harness process to spin up
 $timeout = 45
 $elapsed = 0
-while (-not (Get-Process -Name "DeepSeek Harness*" -ErrorAction SilentlyContinue) -and ($elapsed -lt $timeout)) {
+while (-not (Get-Process -Name "*deepseek*" -ErrorAction SilentlyContinue) -and ($elapsed -lt $timeout)) {
     Start-Sleep -Seconds 1
     $elapsed++
 }
 
 # 8. Monitor Process Loop: While DeepSeek Harness is open, keep local LLMs alive
-while (Get-Process -Name "DeepSeek Harness*" -ErrorAction SilentlyContinue) {
+while (Get-Process -Name "*deepseek*" -ErrorAction SilentlyContinue) {
     Start-Sleep -Seconds 2
 }
 
