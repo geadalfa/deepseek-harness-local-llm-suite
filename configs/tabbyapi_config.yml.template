@@ -1,0 +1,42 @@
+# ==============================================================================
+# TabbyAPI Configuration for DeepSeek Harness Local LLM Suite
+# Optimized for: 64K Context Window, Q8 KV Cache, ExLlamaV2 Engine (120+ TPS)
+# ==============================================================================
+network:
+  host: 127.0.0.1
+  port: 5000
+  disable_auth: true
+  allowed_origins: ["*"]
+  disable_fetch_requests: false
+  send_tracebacks: false
+  api_servers: ["OAI"]
+  sse_ping_interval: 15
+  access_log: false
+  enable_metrics: false
+
+model:
+  model_dir: models
+  model_name: Qwen2.5-Coder-7B-Instruct-exl2-4_25
+  use_as_default: []
+  backend:
+  max_seq_len: 65536
+  cache_size: 65536
+  cache_mode: Q8
+  recurrent_state_fp32: false
+  tensor_parallel: false
+  tensor_parallel_backend: native
+  gpu_split_auto: true
+  autosplit_reserve: [96]
+  gpu_split: []
+  cpu_offload_layers: 0
+
+sampling:
+  override_preset:
+  temperature: 0.7
+  top_p: 0.9
+  min_p: 0.05
+  repetition_penalty: 1.05
+
+logging:
+  log_prompt: false
+  log_generation_params: false

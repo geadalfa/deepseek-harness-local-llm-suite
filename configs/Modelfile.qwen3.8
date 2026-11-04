@@ -1,0 +1,7 @@
+# Ollama Modelfile for Qwen 3.8 27B ISTA-DASLab
+# Sourced from HuggingFace ISTA-DASLab GSQ-RCO quantization
+FROM hf.co/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF:IQ3_XXS
+
+PARAMETER temperature 0.2
+PARAMETER top_p 0.95
+PARAMETER num_ctx 32768
