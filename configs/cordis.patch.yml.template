@@ -1,8 +1,7 @@
-# ==============================================================================
 # DeepSeek Harness Profile Patch Layer (cordis.patch.yml)
-# Part of: DeepSeek Harness Local LLM Suite (github.com/geadalfa/deepseek-harness-local-llm-suite)
-# Persona: Gemi AI
-# ==============================================================================
+# Default DeepSeek Harness settings & plugins preserved (full tools, time-context, and presets).
+# Local LLM Providers: TabbyAPI (EXL2 Turbo) & Ollama (GGUF Suite).
+
 - id: agent-default-model
   name: "@deepseek-ai/dsh-agent-default-model"
   config:
@@ -37,56 +36,36 @@
     headroomTokens: 2048
     maxTokens: 4096
 
-- id: agent-instructions
-  name: "@deepseek-ai/dsh-agent-instructions"
-  config:
-    maxBytes: 32768
-
-- id: system-prompt
-  name: "@deepseek-ai/dsh-system-prompt"
-  config:
-    personaPrefix: |
-      You are Gemi, trusted high-performance AI coding and engineering partner across VS Code, Antigravity, and DeepSeek Harness.
-      Address the user directly and professionally. Strictly NEVER use honorifics.
-      Always adhere to zero-nausea gaming ergonomics when advising on game settings (FOV 90-105, Motion Blur 0%, Camera Shake 0%).
-      Follow all anti-vibe-coding engineering protocols, tool dispatch matrices, and domain knowledge defined in AGENTS.md.
-
-- id: tool-web
-  name: "@deepseek-ai/dsh-tool-web"
-  config:
-    fetch: true
-    searchTimeoutMs: 60000
-
 - id: llm-pi-ai
   name: "@deepseek-ai/dsh-llm-pi-ai"
   config:
     providers:
       tabbyapi:
-        displayName: "TabbyAPI EXL2 Turbo (64K Crisp)"
+        displayName: "TabbyAPI EXL2 Turbo"
         api: openai-completions
         apiKeyEnv: OLLAMA_API_KEY
         baseURL: http://127.0.0.1:5000/v1
-        defaultContextWindow: 65536
+        defaultContextWindow: 131072
         defaultMaxTokens: 4096
         models:
           - id: Qwen2.5-Coder-7B-Instruct-exl2-4_25
-            name: "Qwen 2.5 Coder 7B EXL2 (Turboderp 64K)"
-            contextWindow: 65536
+            name: "Qwen 2.5 Coder 7B EXL2 (128K)"
+            contextWindow: 131072
             maxTokens: 4096
           - id: Qwen2.5-7B-Instruct-1M-exl2-4_25
-            name: "Qwen 2.5 7B Instruct 1M (EXL2 4.25bpw 64K)"
-            contextWindow: 65536
-            maxTokens: 4096
-          - id: Qwen2.5-14B-Instruct-1M-exl2-4_25
-            name: "Qwen 2.5 14B Instruct 1M (EXL2 4.25bpw)"
-            contextWindow: 49152
+            name: "Qwen 2.5 7B Instruct 1M (128K)"
+            contextWindow: 131072
             maxTokens: 4096
           - id: Mistral-Nemo-Instruct-2407-exl2-4_25
-            name: "Mistral Nemo 12B Instruct (EXL2 4.25bpw 64K)"
+            name: "Mistral Nemo 12B Instruct (128K)"
+            contextWindow: 131072
+            maxTokens: 4096
+          - id: Qwen2.5-14B-Instruct-1M-exl2-4_25
+            name: "Qwen 2.5 14B Instruct 1M (64K)"
             contextWindow: 65536
             maxTokens: 4096
       ollama:
-        displayName: "Ollama Local (GGUF Suite)"
+        displayName: "Ollama Local (RTX 4070 SUPER)"
         api: openai-completions
         apiKeyEnv: OLLAMA_API_KEY
         baseURL: http://127.0.0.1:11434/v1
@@ -94,16 +73,16 @@
         defaultMaxTokens: 4096
         models:
           - id: deepseek-r1:7b
-            name: "DeepSeek R1 Distill 7B"
+            name: "DeepSeek R1 Distill 7B (128K)"
             contextWindow: 131072
             maxTokens: 4096
           - id: qwen2.5-coder:7b
-            name: "Qwen 2.5 Coder 7B"
+            name: "Qwen 2.5 Coder 7B (128K)"
             contextWindow: 131072
             maxTokens: 4096
           - id: qwen3.8:27b-ista-das
-            name: "Qwen 3.8 27B ISTA-DASLab"
-            contextWindow: 131072
+            name: "Qwen 3.8 27B ISTA-DASLab (64K)"
+            contextWindow: 65536
             maxTokens: 4096
 
 - insert:
@@ -114,24 +93,4 @@
         transport: stdio
         command: npx.cmd
         args: [ "-y", "duckduckgo-mcp" ]
-        failOnStartupError: false
-
-    - id: mcp-github
-      name: "@deepseek-ai/dsh-mcp-client"
-      config:
-        serverName: github
-        transport: stdio
-        command: npx.cmd
-        args: [ "-y", "@modelcontextprotocol/server-github" ]
-        env:
-          GITHUB_PERSONAL_ACCESS_TOKEN: "{{GITHUB_TOKEN}}"
-        failOnStartupError: false
-
-    - id: mcp-financial
-      name: "@deepseek-ai/dsh-mcp-client"
-      config:
-        serverName: financial-engine
-        transport: stdio
-        command: "{{PYTHON_EXECUTABLE}}"
-        args: [ "{{LOCAL_LLM_DIR}}\\tools\\financial_mcp_server.py" ]
         failOnStartupError: false
