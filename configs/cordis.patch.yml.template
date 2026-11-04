@@ -73,6 +73,18 @@
             name: "Qwen 2.5 Coder 7B EXL2 (Turboderp 64K)"
             contextWindow: 65536
             maxTokens: 4096
+          - id: Qwen2.5-7B-Instruct-1M-exl2-4_25
+            name: "Qwen 2.5 7B Instruct 1M (EXL2 4.25bpw 64K)"
+            contextWindow: 65536
+            maxTokens: 4096
+          - id: Qwen2.5-14B-Instruct-1M-exl2-4_25
+            name: "Qwen 2.5 14B Instruct 1M (EXL2 4.25bpw)"
+            contextWindow: 49152
+            maxTokens: 4096
+          - id: Mistral-Nemo-Instruct-2407-exl2-4_25
+            name: "Mistral Nemo 12B Instruct (EXL2 4.25bpw 64K)"
+            contextWindow: 65536
+            maxTokens: 4096
       ollama:
         displayName: "Ollama Local (GGUF Suite)"
         api: openai-completions
