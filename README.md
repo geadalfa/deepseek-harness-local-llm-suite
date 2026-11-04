@@ -18,6 +18,7 @@ This repository provides an automated, reproducible setup to turn **DeepSeek Har
    - DeepSeek Harness out-of-the-box inlines full JSON schemas for every registered MCP tool into the LLM prompt. Connecting heavy suites (like REA, Bitbucket, Confluence, Jira) quickly consumes **30,000–80,000+ tokens per step**, crashing context windows.
    - Our **MCP Lazy-Loading Engine** (`scripts/patch_dsh_mcp_lazy_loading.py`) transforms tool registration into dynamic meta proxies (`mcp__<server>__call` and `describe_tool`), compressing prompt tokens by **>95%** (down to ~1,500 tokens)!
    - Upstream feature branch: [geadalfa/deepseek-harness:feature/mcp-lazy-loading](https://github.com/geadalfa/deepseek-harness/tree/feature/mcp-lazy-loading).
+   - Upstream RFC & Discussion: [deepseek-ai/deepseek-harness#12196](https://github.com/deepseek-ai/deepseek-harness/discussions/12196).
 3. **Ollama (GGUF Suite):**
    - `deepseek-r1:7b` (Distill reasoning model for deep chain-of-thought analysis).
    - `qwen2.5-coder:7b` (Versatile multi-language coding agent).
