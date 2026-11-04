@@ -9,15 +9,20 @@
 This repository provides an automated, reproducible setup to turn **DeepSeek Harness** into a private, local AI engineering powerhouse backed by high-speed local inference engines:
 
 1. **TabbyAPI (ExLlamaV2 Engine):**
-   - Model: `Qwen2.5-Coder-7B-Instruct-exl2-4_25` (Turboderp 4.25bpw).
-   - **64K Context Window** with **Q8 KV-Cache**.
-   - Blazing inference speed: **120+ Tokens/Sec** on modern NVIDIA GPUs (~10.3 GB VRAM).
-   - Crisp token processing with zero attention degradation or language corruption.
-2. **Ollama (GGUF Suite):**
+   - `Qwen2.5-Coder-7B-Instruct-exl2-4_25` (Turboderp 4.25bpw, 64K YaRN, 120+ TPS).
+   - `Qwen2.5-7B-Instruct-1M-exl2-4_25` (Bartowski 4.25bpw, 64K YaRN, 1M base architecture).
+   - `Mistral-Nemo-Instruct-2407-exl2-4_25` (Bartowski 4.25bpw, 12B parameter, 64K YaRN).
+   - `Qwen2.5-14B-Instruct-1M-exl2-4_25` (Bartowski 4.25bpw, 14B parameter, 48K YaRN).
+   - **Q8 KV-Cache Invariant:** Zero Indonesian vocabulary corruption, perfectly stable grammar.
+2. **Antigravity-Style MCP Lazy-Loading Engine:**
+   - DeepSeek Harness out-of-the-box inlines full JSON schemas for every registered MCP tool into the LLM prompt. Connecting heavy suites (like REA, Bitbucket, Confluence, Jira) quickly consumes **30,000–80,000+ tokens per step**, crashing context windows.
+   - Our **MCP Lazy-Loading Engine** (`scripts/patch_dsh_mcp_lazy_loading.py`) transforms tool registration into dynamic meta proxies (`mcp__<server>__call` and `describe_tool`), compressing prompt tokens by **>95%** (down to ~1,500 tokens)!
+   - Upstream feature branch: [geadalfa/deepseek-harness:feature/mcp-lazy-loading](https://github.com/geadalfa/deepseek-harness/tree/feature/mcp-lazy-loading).
+3. **Ollama (GGUF Suite):**
    - `deepseek-r1:7b` (Distill reasoning model for deep chain-of-thought analysis).
    - `qwen2.5-coder:7b` (Versatile multi-language coding agent).
    - `qwen3.8:27b-ista-das` (ISTA-DASLab GSQ-RCO IQ3_XXS 27B model).
-3. **Zero-Overhead Daemon Lifecycle:**
+4. **Zero-Overhead Daemon Lifecycle:**
    - Background servers (Ollama + TabbyAPI) **ONLY spin up when DeepSeek Harness is opened**.
    - Upon closing DeepSeek Harness, all daemon processes are **instantly terminated**, reclaiming 100% of your RAM and VRAM for gaming and high-performance workflows.
    - **0 MB boot overhead**: Windows startup registry remains clean.
